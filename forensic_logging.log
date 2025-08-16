@@ -1,0 +1,18 @@
+2025-08-05 20:24:47,489 - INFO - Forensic logging framework started
+2025-08-05 20:24:47,504 - INFO - Starting simulation: 30.0s duration, 5.0 Hz, 10.0% anomaly rate
+2025-08-05 20:24:52,623 - INFO - Mined block 0 with 25 transactions
+2025-08-05 20:24:57,737 - INFO - Mined block 1 with 24 transactions
+2025-08-05 20:25:02,848 - INFO - Mined block 2 with 25 transactions
+2025-08-05 20:25:08,248 - INFO - Mined block 3 with 23 transactions
+2025-08-05 20:25:08,835 - INFO - Processed 100 telemetry frames
+2025-08-05 20:25:09,309 - WARNING - Anomaly detected: score=-0.037
+2025-08-05 20:25:10,277 - WARNING - Anomaly detected: score=-0.069
+2025-08-05 20:25:11,940 - WARNING - Anomaly detected: score=-0.023
+2025-08-05 20:25:12,646 - WARNING - Anomaly detected: score=-0.085
+2025-08-05 20:25:13,494 - INFO - Mined block 4 with 19 transactions
+2025-08-05 20:25:13,901 - WARNING - Anomaly detected: score=-0.077
+2025-08-05 20:25:17,051 - WARNING - Anomaly detected: score=-0.079
+2025-08-05 20:25:17,736 - INFO - Simulation completed: 136 frames processed
+2025-08-05 20:25:19,747 - INFO - Forensic logging framework stopped
+2025-08-05 20:25:19,782 - INFO - Forensic logging framework started
+2025-08-05 20:25:19,784 - INFO - Starting simulation: 30.0s duration, 5.0 Hz, 10.0% anomaly rate
