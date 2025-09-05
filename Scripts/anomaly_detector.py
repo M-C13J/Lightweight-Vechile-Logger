@@ -9,6 +9,7 @@ def train_anomaly_detector(data: np.ndarray, model_path="anomaly_model.pkl"):
     clf.fit(data)
     joblib.dump(clf, model_path)
 
+# Loads a trained anomaly detection model and returns -1 for anomalies, 1 for normal data
 def predict_anomalies(data: np.ndarray, model_path="anomaly_model.pkl"):
     clf = joblib.load(model_path)
     return clf.predict(data)  # -1 = anomaly, 1 = normal

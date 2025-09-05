@@ -1,22 +1,30 @@
 # carla_telemetery.py
-import numpy as np
 import csv
 import itertools
 
-# Set this to your dataset path to use pre-recorded data
-DATASET_PATH = "dataset.csv"  # CSV with velocity, accel, loc_x, loc_y
-USE_DATASET = True
+
+DATASET_PATH = "../datasets/telemetry_selin.csv" # path to desired dataset CSV file
+USE_DATASET = True # if False, connects to CARLA simulator
 
 if USE_DATASET:
-    dataset_file = open(DATASET_PATH, newline='')
-    reader = csv.reader(dataset_file)
-    next(reader)  # skip header if exists
-    data_iter = itertools.cycle(reader)  # loop forever
+    dataset_file = open(DATASET_PATH, newline='', encoding="utf-8")
+    reader = csv.DictReader(dataset_file)
+    data_iter = itertools.cycle(list(reader)) 
 
+# Fetches telemetry data either from dataset or CARLA simulator
 def get_telemetry():
     if USE_DATASET:
         row = next(data_iter)
-        return np.array([float(row[0]), float(row[1]), float(row[2]), float(row[3])])
+        return {
+            "agent_id": row.get("class", "veh-1"),
+            "position_x": float(row.get("position_x", 0.0)),
+            "position_y": float(row.get("position_y", 0.0)),
+            "velocity_x": float(row.get("velocity_x", 0.0)),
+            "velocity_y": float(row.get("velocity_y", 0.0)),  # may not exist in some CSVs
+            "acceleration_x": float(row.get("acceleration_x", 0.0)),
+            "yaw": float(row.get("yaw", 0.0) if "yaw" in row else 0.0),
+            "altitude": float(row.get("altitude", 0.0) if "altitude" in row else 0.0)
+        }
     else:
         import carla
         client = carla.Client('localhost', 2000)
@@ -26,4 +34,13 @@ def get_telemetry():
         velocity = vehicle.get_velocity()
         accel = vehicle.get_acceleration()
         loc = vehicle.get_location()
-        return np.array([velocity.x, accel.x, loc.x, loc.y])
+        return {
+            "agent_id": "veh-live",
+            "position_x": loc.x,
+            "position_y": loc.y,
+            "velocity_x": velocity.x,
+            "velocity_y": velocity.y,
+            "acceleration_x": accel.x,
+            "yaw": getattr(vehicle.get_transform().rotation, "yaw", 0.0),
+            "altitude": getattr(loc, "z", 0.0)
+        }
